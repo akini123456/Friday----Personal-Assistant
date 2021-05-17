@@ -20,6 +20,7 @@ qu = '\"'
 weatherURL = "https://weather.com/weather/today/l/d09a05ad08a76e98925aa15e3bdcab867c9ee8c0b8c3c8c11f99efadfce43c30"
 quoteOfTheDayURL = "https://www.brainyquote.com/quote_of_the_day"
 techCrunchURL = "https://techcrunch.com/"
+commandsFridayLink = "https://friday-pa.glitch.me/#commands"
 
 # Assistant Functions
 def readStockPrice(companySymbol):
@@ -101,7 +102,11 @@ def readEmail():
         message = "Cannot reach email"
     return message
   
-
+def helpUser():
+  message = ""
+  message += "I am not sure if I understand Mr. Kini. Try looking at my commands sections here... "
+  message += commandsFridayLink
+  return message
 
 # Text Processing for Dates
 def textToDate(text):
