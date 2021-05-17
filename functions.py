@@ -19,7 +19,7 @@ qu = '\"'
 # Scraping URLs
 weatherURL = "https://weather.com/weather/today/l/d09a05ad08a76e98925aa15e3bdcab867c9ee8c0b8c3c8c11f99efadfce43c30"
 quoteOfTheDayURL = "https://www.brainyquote.com/quote_of_the_day"
-
+techCrunchURL = "https://techcrunch.com/"
 
 # Assistant Functions
 def readStockPrice(companySymbol):
@@ -32,6 +32,20 @@ def readStockPrice(companySymbol):
     except:
         message = "Mr. Kini, the symbol is either invalid or has no data"
     return message
+  
+def getLatestNews():
+    message = ""
+    message += "Hi Mr. Kini, here is the latest tech news available..." + nl + section + nl
+
+    techCrunchData = BeautifulSoup(requests.get(techCrunchURL).content, 'html.parser')
+    articles = techCrunchData.findAll('a', class_='post-block__title__link')
+    for x in range(0, 3):
+        message += str(articles[x]['href'])
+        if x != 2:
+            message += '\n' + '\n'
+
+    message += nl + section
+    return message
 
 def dailyUpdate():
     message = ""
@@ -39,7 +53,15 @@ def dailyUpdate():
     weatherData = BeautifulSoup(requests.get(weatherURL).content, 'html.parser')
     currentTemperature = weatherData.find('span', class_='CurrentConditions--tempValue--3KcTQ').text
     highLowTemperature = weatherData.find_all('span')
-    message += "Current: " + currentTemperature + nl + "Low: " + highLowTemperature[33].text + nl + "High: " + highLowTemperature[32].text + nl + section + nl
+    message += "Current: " + currentTemperature + nl + "Low: " + highLowTemperature[33].text + nl + "High: " + \
+               highLowTemperature[32].text + nl + section + nl
+    techCrunchData = BeautifulSoup(requests.get(techCrunchURL).content, 'html.parser')
+    articles = techCrunchData.findAll('a', class_='post-block__title__link')
+    for x in range(0, 3):
+        message += str(articles[x]['href'])
+        if x != 2:
+            message += '\n' + '\n'
+    message += nl + section + nl
     quoteData = BeautifulSoup(requests.get(quoteOfTheDayURL).content, 'html.parser')
     quote = quoteData.findAll('a', title='view quote')[1].text
     quoteAuthor = quoteData.find('a', title='view author').text
