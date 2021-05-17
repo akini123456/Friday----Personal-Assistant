@@ -46,7 +46,8 @@ def friday():
                           elif len(command) is not e and command[e] == parsedInput[e]:
                               print("Parsing...")
                           else:
-                             break
+                            request = 'help'
+                            break
   # Processes requests
   if request == 'stock':
       functions.sendMessage(client, functions.readStockPrice(parsedInput[prefix]))
@@ -70,6 +71,11 @@ def friday():
     prefix = 0
   elif request == 'news':
     functions.sendMessage(client, functions.getLatestNews())
+    functions.wipeMessages(client)
+    request = ""
+    prefix = 0
+  elif request == 'help':
+    functions.sendMessage(client, functions.helpUser())
     functions.wipeMessages(client)
     request = ""
     prefix = 0
