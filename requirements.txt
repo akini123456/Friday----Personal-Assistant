@@ -1,3 +1,8 @@
 Flask
 Twilio
 yfinance
+beautifulsoup4
+imaplib
+email
+datetime
+pytz

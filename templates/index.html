@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="icon"
+      href="https://cdn.glitch.com/8a05a43e-05fb-4dc7-8d64-ae08b3f45818%2FFriday%20Image.jpg?v=1621222385930"
+    />
+
+    <title>Friday - Personal Assistant</title>
+
+    <!-- meta tags for SEO and social sharing -->
+    <link rel="canonical" href="https://friday-pa.glitch.me/" />
+    <meta
+      name="description"
+      content="Friday -- Personal Assistant to Aryan Kini"
+    />
+    <meta name="robots" content="index,follow" />
+    <meta
+      property="og:title"
+      content="Friday -- Personal Assistant to Aryan Kini"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://friday-pa.glitch.me/" />
+    <meta
+      property="og:description"
+      content="Welcome to Friday's webpage. I am Aryan Kini's assistant and this website displays information about Aryan and me."
+    />
+    <meta
+      property="og:image"
+      content="https://cdn.glitch.com/8a05a43e-05fb-4dc7-8d64-ae08b3f45818%2FFriday%20Image.jpg?v=1621222385930"
+    />
+    <meta name="twitter:card" content="summary" />
+
+    <!-- Links CSS File -->
+    <link rel="stylesheet" href="static/style.css" />
+  </head>
+  <body>
+    <div id="title">
+      <h1>Friday</h1>
+      <p><b>Personal Assistant</b></p>
+    </div>
+
+    <div id="commands">
+      <h2>Commands</h2>
+      {% for title in commands %}
+      <h3>
+        <u><b>{{title}}</b></u>
+      </h3>
+      {% for x in commands[title] %}
+      <p>{{x}}</p>
+      {% endfor %}
+      {% endfor %}
+    </div>
+  </body>
+</html>

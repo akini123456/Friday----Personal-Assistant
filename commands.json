@@ -1,20 +1,35 @@
 {
-  "stock": [
+  "Stock": [
     "check stock symbol",
     "stock",
-    "stock information",
-    "current stock price"
+    "stock information"
   ],
-  "hello" : [
-    "howdy friday",
-    "friday",
-    "hello friday",
-    "hello"
-  ],
-  "weather" : [
+  "Weather" : [
     "weather",
     "what is the weather",
     "how sunny is it outside",
     "temperature"
+  ],
+  "Update" : [
+    "update",
+    "give me an update",
+    "update me friday",
+    "whats going on today",
+    "update me"
+  ],
+  "News" : [
+    "news",
+    "give me the latest news",
+    "give me the latest friday",
+    "whats happening in the tech world",
+    "latest news",
+    "tech news",
+    "what is the latest news friday"
+  ],
+  "Hello" : [
+    "howdy friday",
+    "friday",
+    "hello friday",
+    "hello"
   ]
 }

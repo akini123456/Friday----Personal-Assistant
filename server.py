@@ -40,13 +40,13 @@ def friday():
                       command = data[x][i].split()
                       for e in range(0, len(command)):
                           if len(command) == e + 1 and command[e] == parsedInput[e]:
-                              request = x
+                              request = x.lower()
                               prefix = len(command)
                               break
                           elif len(command) is not e and command[e] == parsedInput[e]:
                               print("Parsing...")
                           else:
-                              break
+                             break
   # Processes requests
   if request == 'stock':
       functions.sendMessage(client, functions.readStockPrice(parsedInput[prefix]))
@@ -63,6 +63,17 @@ def friday():
     functions.wipeMessages(client)
     request = ""
     prefix = 0
+  elif request == 'update':
+    functions.sendMessage(client, functions.dailyUpdate())
+    functions.wipeMessages(client)
+    request = ""
+    prefix = 0
+  elif request == 'news':
+    functions.sendMessage(client, functions.getLatestNews())
+    functions.wipeMessages(client)
+    request = ""
+    prefix = 0
+  
     
   # Regulatory Processes
   for x in range(0, 4):
@@ -72,7 +83,8 @@ def friday():
         time.sleep(1)
         break
     
-  return render_template("index.html")
+  
+  return render_template("index.html", commands = data)
 
 @app.route("/emailRead")
 def fridayEmail():
@@ -84,7 +96,7 @@ def fridayEmail():
     functions.sendMessage(client, emailCompiled)
     functions.wipeMessages(client)
     
-  return render_template("index.html")
+  return render_template("index.html", commands = data)
 
 if __name__ == "__main__":
   app.run()
