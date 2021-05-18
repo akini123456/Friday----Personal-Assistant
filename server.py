@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import render_template
+from flask import request
 app = Flask(__name__)
 from twilio.rest import Client
 import json
@@ -46,8 +47,10 @@ def friday():
                           elif len(command) is not e and command[e] == parsedInput[e]:
                               print("Parsing...")
                           else:
-                            request = 'help'
                             break
+          if parsedInput != "" and request == "":
+            request = 'help'
+  
   # Processes requests
   if request == 'stock':
       functions.sendMessage(client, functions.readStockPrice(parsedInput[prefix]))
@@ -97,12 +100,32 @@ def fridayEmail():
   nl = '\n'
   section = "---------------------------"
   
+  # Opens JSON
+  data = json.load(open('commands.json'))
+  
   emailCompiled = functions.readEmail()
   if emailCompiled != "You have mail!" + nl + section + nl:
     functions.sendMessage(client, emailCompiled)
     functions.wipeMessages(client)
     
   return render_template("index.html", commands = data)
+
+@app.route("/contact", methods=['GET', 'POST'])
+def reportContact():
+  nl = '\n'
+  section = "---------------------------"
+  
+  # Opens JSON
+  data = json.load(open('commands.json'))
+           
+  userdata = request.form
+  message = ""
+  message += str(userdata['fname']) + " " + str(userdata['lname']) + " sent you this message..." + nl + section + nl + str(userdata['message']) + nl + section + nl + "You can contact " + str(userdata['fname']) + " " + str(userdata['lname']) + " @ " + str(userdata['email']) + " or " + str(userdata['phone'])
+  
+  functions.sendMessage(client, message)
+  functions.wipeMessages(client)
+  
+  return render_template("index.html", commands = data) 
 
 if __name__ == "__main__":
   app.run()
