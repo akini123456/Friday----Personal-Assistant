@@ -7,6 +7,7 @@ import imaplib
 import email
 from datetime import datetime, date
 import pytz
+from pushbullet import Pushbullet
 
 # Dates for months
 months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -182,3 +183,8 @@ def sendMessage(twilioClient, messageBody):
         from_=settings.FRIDAY,
         to=settings.ARYANSEND
     )
+
+# Sends Pushbullet
+def sendPushbullet(title,message):
+  pushbullet = Pushbullet(settings.PUSHBULLET_API_KEY)
+  pushbullet.push_note(title,message)

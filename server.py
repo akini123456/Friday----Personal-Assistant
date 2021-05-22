@@ -110,6 +110,7 @@ def fridayEmail():
     
   return render_template("index.html", commands = data)
 
+
 @app.route("/contact", methods=['GET', 'POST'])
 def reportContact():
   nl = '\n'
@@ -124,6 +125,9 @@ def reportContact():
   
   functions.sendMessage(client, message)
   functions.wipeMessages(client)
+  
+  title = "You have a message from " + str(userdata['fname']) + " " + str(userdata['lname'])
+  functions.sendPushbullet(title, message)
   
   return render_template("index.html", commands = data) 
 
