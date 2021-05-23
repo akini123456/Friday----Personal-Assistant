@@ -15,7 +15,7 @@ body {
 
 
 /* This is the Contact Us CSS */
-label, h1 {
+label, h1, h3{
   color: white;
 }
 input[type=text], select, textarea, input[type=email] {

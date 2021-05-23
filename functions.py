@@ -49,6 +49,11 @@ def getLatestNews():
     message += nl + section
     return message
 
+def emergency(originalMessage):
+  message = ""
+  message += "Mr. Kini has gotten into an emergency! This was his message..." + nl + section + nl + originalMessage
+  return message
+  
 def dailyUpdate():
     message = ""
     message += "Good Morning Mr. Kini, " + nl + section + nl + "Weather:" + nl + "East Brunswick, NJ" + nl
@@ -188,3 +193,9 @@ def sendMessage(twilioClient, messageBody):
 def sendPushbullet(title,message):
   pushbullet = Pushbullet(settings.PUSHBULLET_API_KEY)
   pushbullet.push_note(title,message)
+  
+# Sends Message on Emergency Channel
+def sendPushbulletEmergencyChannel(message):
+  pushbullet = Pushbullet(settings.PUSHBULLET_API_KEY)
+  title = "An Emergency Has Occured!!!"
+  pushbullet.channels[0].push_note(title, message)

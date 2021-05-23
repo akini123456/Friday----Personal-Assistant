@@ -37,12 +37,12 @@
     <link rel="stylesheet" href="static/style.css" />
   </head>
   <body>
-    <div id="title" class = "container">
+    <div id="title" class="container">
       <h1>Friday</h1>
       <p><b>Personal Assistant</b></p>
     </div>
 
-    <div id="commands" class = "container">
+    <div id="commands" class="container">
       <h2>Commands</h2>
       {% for title in commands %}
       <h3>
@@ -50,32 +50,66 @@
       </h3>
       {% for x in commands[title] %}
       <p>{{x}}</p>
-      {% endfor %}
-      {% endfor %}
+      {% endfor %} {% endfor %}
     </div>
-    
-    <div id = "contact" class = "container">
+
+    <div class="container">
+      <h1>Want to meet with Mr. Kini?</h1>
+      <h3>Schedule a meeting here</h3>
+      <div
+        class="calendly-inline-widget"
+        data-url="https://calendly.com/aryan-kini/30min"
+        style="min-width:320px;height:630px;"
+      ></div>
+      <script
+        type="text/javascript"
+        src="https://assets.calendly.com/assets/external/widget.js"
+        async
+      ></script>
+    </div>
+
+    <div id="contact" class="container">
       <form method="post" action="/contact">
         <h1>Want to contact Mr. Kini?</h1>
         <label for="fname">First Name</label>
-        <input type="text" id="fname" name="fname" placeholder="Your name..">
+        <input type="text" id="fname" name="fname" placeholder="Your name.." />
 
         <label for="lname">Last Name</label>
-        <input type="text" id="lname" name="lname" placeholder="Your last name..">
-        
+        <input
+          type="text"
+          id="lname"
+          name="lname"
+          placeholder="Your last name.."
+        />
+
         <label for="email">Your Email Address</label>
-        <input type="email" id="email" name="email" placeholder="Your email address..">
-        
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Your email address.."
+        />
+
         <label for="phone">Your Phone Number</label>
-        <input type="text" id="phone" name="phone" placeholder="Your phone number..">
+        <input
+          type="text"
+          id="phone"
+          name="phone"
+          placeholder="Your phone number.."
+        />
 
         <label for="message">Your Message</label>
-        <textarea id="message" name="message" placeholder="Write your message here... " style="height:20%"></textarea>
+        <textarea
+          id="message"
+          name="message"
+          placeholder="Write your message here... "
+          style="height:20%"
+        ></textarea>
 
-        <input type="submit" value="Send">
+        <input type="submit" value="Send" />
       </form>
     </div>
-    
+
     <script src="{{url_for('static', filename='script.js')}}"></script>
   </body>
 </html>
