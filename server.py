@@ -21,6 +21,7 @@ def friday():
   request = ""
   prefix = 0
   parsedInput = []
+  originalMessage = ""
 
   # Opens JSON
   data = json.load(open('commands.json'))
@@ -33,6 +34,7 @@ def friday():
     for x in range(0, len(records)):
       if record.sid != records[x] and record.from_ == settings.ARYANFROM:
           body = record.body.lower()
+          originalMessage = body
           cleanedInput = functions.cleanInput(body)
           parsedInput = functions.parseInput(cleanedInput)
           for x in data:
@@ -40,16 +42,26 @@ def friday():
                   for i in range(0, len(data[x])):
                       command = data[x][i].split()
                       for e in range(0, len(command)):
-                          if len(command) == e + 1 and command[e] == parsedInput[e]:
-                              request = x.lower()
-                              prefix = len(command)
+                          if len(parsedInput) > 1:
+                            if len(command) == e + 1 and command[e] == parsedInput[e]:
+                                request = x.lower()
+                                prefix = len(command)
+                                break
+                            elif len(command) != e and command[e] == parsedInput[e]:
+                                print("Parsing...")
+                            else:
                               break
-                          elif len(command) is not e and command[e] == parsedInput[e]:
-                              print("Parsing...")
                           else:
-                            break
+                            if command[e] == parsedInput[e]:
+                                request = x.lower()
+                                prefix = len(command)
+                                break
+                            else:
+                              break
+        
           if parsedInput != "" and request == "":
             request = 'help'
+        
   
   # Processes requests
   if request == 'stock':
@@ -82,7 +94,12 @@ def friday():
     functions.wipeMessages(client)
     request = ""
     prefix = 0
-  
+  elif request == 'emergency':
+    functions.sendMessage("Emergency Signal Sent!")
+    functions.sendPushbulletEmergencyChannel(functions.emergency(originalMessage))
+    functions.wipeMessages(client)
+    request = ""
+    prefix = 0
     
   # Regulatory Processes
   for x in range(0, 4):
@@ -110,6 +127,7 @@ def fridayEmail():
     
   return render_template("index.html", commands = data)
 
+
 @app.route("/contact", methods=['GET', 'POST'])
 def reportContact():
   nl = '\n'
@@ -124,6 +142,9 @@ def reportContact():
   
   functions.sendMessage(client, message)
   functions.wipeMessages(client)
+  
+  title = "You have a message from " + str(userdata['fname']) + " " + str(userdata['lname'])
+  functions.sendPushbullet(title, message)
   
   return render_template("index.html", commands = data) 
 
